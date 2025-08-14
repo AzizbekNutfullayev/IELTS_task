@@ -11,8 +11,8 @@ router.post('/login', login);
 router.post('/signup', signup);
 router.post("/questions", addquestions);
 router.get('/getquestions', getquestions)
-router.delete('/delete/:id',delate)
-router.put("/updatequestion/:id", updateQuestion);
+router.delete('/delete/:id', delate)
+router.put("/updatequestion/:updateId", updateQuestion);
 
 
 

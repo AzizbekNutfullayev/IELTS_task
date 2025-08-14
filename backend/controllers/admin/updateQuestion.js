@@ -1,33 +1,54 @@
-const pool = require("../../config/db"); 
+const pool = require("../../config/db");
 
 exports.updateQuestion = async (req, res) => {
+  const client = await pool.connect();
   try {
     const { id } = req.params; 
-    const { body, correct_answer } = req.body; 
+    const { question_body, correct_answer, options } = req.body;
 
     if (!id) {
-      return res.status(400).json({ message: "ID is required" });
+      return res.status(400).json({ message: "Question ID is required" });
     }
 
-    if (!body && !correct_answer) {
-      return res.status(400).json({ message: "No fields to update" });
-    }
+    await client.query("BEGIN");
 
-    const result = await pool.query(
+    const questionResult = await client.query(
       `UPDATE questions 
        SET body = COALESCE($1, body), 
            correct_answer = COALESCE($2, correct_answer) 
        WHERE id = $3 RETURNING *`,
-      [body || null, correct_answer || null, id]
+      [question_body || null, correct_answer || null, id]
     );
 
-    if (result.rowCount === 0) {
+    if (questionResult.rowCount === 0) {
+      await client.query("ROLLBACK");
       return res.status(404).json({ message: "Question not found" });
     }
 
-    res.json({ message: "Question updated", updated: result.rows[0] });
+    if (Array.isArray(options) && options.length > 0) {
+      for (let opt of options) {
+        await client.query(
+          `UPDATE options 
+           SET body = COALESCE($1, body), 
+               is_correct = COALESCE($2, is_correct)
+           WHERE id = $3 AND question_id = $4`,
+          [opt.body || null, opt.is_correct ?? null, opt.id, id]
+        );
+      }
+    }
+
+    await client.query("COMMIT");
+
+    res.json({
+      message: "Question and options updated successfully",
+      updatedQuestion: questionResult.rows[0]
+    });
+
   } catch (err) {
-    console.error(err);
+    await client.query("ROLLBACK");
+    console.error("Update error:", err);
     res.status(500).json({ message: "Server error" });
+  } finally {
+    client.release();
   }
 };

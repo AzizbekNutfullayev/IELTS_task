@@ -20,7 +20,7 @@ exports.login = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: "Parol noto‘g‘ri" });
         }
-        
+
         res.json({ message: "Login muvaffaqiyatli"});
 
     } catch (error) {
