@@ -15,6 +15,7 @@ const Home = () => {
     setGameStarted(true);
     setScore(0);
     setCurrentQuestionIndex(0);
+
     try {
       const res = await axios.get("http://localhost:1111/user/viewquestions");
 
@@ -25,7 +26,7 @@ const Home = () => {
           options: q.options
             .map(opt => ({
               ...opt,
-              correct: opt.correct === true || opt.correct === "true" || opt.correct === 1
+              correct: opt.is_correct === true || opt.is_correct === "true" || opt.is_correct === 1
             }))
             .sort(() => Math.random() - 0.5)
         }))
@@ -48,9 +49,10 @@ const Home = () => {
 
     const timer = setInterval(() => {
       setQuestionTime(prev => {
-        if (prev === 1) {
+        if (prev <= 1) {
+          clearInterval(timer);
           revealAnswer();
-          return 10;
+          return 0;
         }
         return prev - 1;
       });
@@ -60,6 +62,7 @@ const Home = () => {
   }, [gameStarted, currentQuestionIndex]);
 
   const handleAnswer = (option) => {
+    if (selectedAnswer) return;
     setSelectedAnswer(option.id);
 
     if (option.correct) {
@@ -71,24 +74,28 @@ const Home = () => {
 
   const revealAnswer = () => {
     setShowCorrect(true);
-    if (currentQuestionIndex < questions.length - 1) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex(prev => prev + 1);
-      }, 2000);
-    }
+      }
+    }, 2000);
   };
 
   const submitScore = async () => {
     try {
-      await axios.post("https://your-api.com/scores", { score });
-      alert("Score submitted!");
+    
+      const session_id = Date.now(); 
+      const answers = questions.map(q => ({
+        question_id: q.question_id,
+        option_id: selectedAnswer 
+      }));
+
+      const res = await axios.post("http://localhost:1111/user/submit", { session_id, answers });
+
+      alert(`Score submitted! Ballingiz: ${res.data.score}`);
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const handleTryAgain = () => {
-    handleStart();
   };
 
   return (
@@ -105,8 +112,8 @@ const Home = () => {
               {currentQuestion.options.map(option => {
                 let classes = "option";
                 if (showCorrect) {
-                  if (option.correct) classes += " correct"; // Yashil
-                  else if (selectedAnswer === option.id && !option.correct) classes += " wrong"; // Qizil
+                  if (option.correct) classes += " correct";
+                  else if (selectedAnswer === option.id) classes += " wrong";
                 }
                 return (
                   <label key={option.id} className={classes}>
@@ -127,15 +134,15 @@ const Home = () => {
 
             {currentQuestionIndex === questions.length - 1 && showCorrect && (
               <div className="end-buttons">
-                <button className="btn" onClick={submitScore}>Submit Score</button>
-                <button className="btn" onClick={handleTryAgain}>Try Again</button>
+                {/* <button className="btn" onClick={submitScore}>Submit Score</button> */}
+                <button className="btn" onClick={handleStart}>Try Again</button>
               </div>
             )}
           </div>
         ) : (
           <div>
             <h2>Test finished! Your final score: {score}</h2>
-            <button className="btn" onClick={handleTryAgain}>Try Again</button>
+            <button className="btn" onClick={handleStart}>Try Again</button>
           </div>
         )}
       </div>

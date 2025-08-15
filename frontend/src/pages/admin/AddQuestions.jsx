@@ -17,14 +17,14 @@ const AddQuestion = () => {
     newOptions[index][field] = value;
     setOptions(newOptions);
   };
-
   const handleCorrectChange = (index) => {
     const newOptions = options.map((opt, i) => ({
       ...opt,
-      is_correct: i === index, // faqat bittasini true qilamiz
+      is_correct: i === index, 
     }));
     setOptions(newOptions);
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,11 +37,10 @@ const AddQuestion = () => {
     try {
       await axios.post("http://localhost:1111/admin/questions", {
         body,
-        admin_id: 1, // admin id ni sessiyadan yoki localStoragedan olish kerak
+        admin_id: 1, 
         options
       });
 
-      // AdminHome sahifasiga o'tish
       navigate("/AdminHome");
     } catch (err) {
       console.error("Add error:", err);

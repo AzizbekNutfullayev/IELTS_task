@@ -12,7 +12,7 @@ const AdminHome = () => {
       const res = await axios.get("http://localhost:1111/admin/getquestions");
       setQuestions(res.data);
     } catch (err) {
-      console.log(err);
+      console.log("Fetch error:", err);
     }
   };
 
@@ -28,17 +28,14 @@ const AdminHome = () => {
     }
   };
 
-  // FULL EDIT (savol + barcha javoblar)
+  // UPDATE savol
   const handleEditFull = async (question) => {
     const newQuestionBody = prompt("Savol matnini tahrirlash:", question.question_body);
     if (!newQuestionBody) return;
 
     const updatedOptions = question.options.map((opt) => {
       const newOptionBody = prompt(`Variantni tahrirlash: (${opt.body})`, opt.body);
-      const isCorrectInput = prompt(
-        `Bu variant to‘g‘ri javobmi? (true/false)`,
-        opt.is_correct ? "true" : "false"
-      );
+      const isCorrectInput = prompt(`Bu variant to‘g‘ri javobmi? (true/false)`, opt.is_correct ? "true" : "false");
       return {
         id: opt.id,
         body: newOptionBody || opt.body,
@@ -47,17 +44,12 @@ const AdminHome = () => {
     });
 
     try {
-      await 
-      axios.put(`http://localhost:1111/admin/updatequestion/${id}`, data
-        ,
+      await axios.put(`http://localhost:1111/admin/updatequestion/${question.question_id}`, {
+        question_body: newQuestionBody,
+        correct_answer: updatedOptions.find(o => o.is_correct)?.body || null,
+        options: updatedOptions
+      });
 
-        {
-          question_body: newQuestionBody,
-          correct_answer: updatedOptions.find(o => o.is_correct)?.body || null,
-          options: updatedOptions
-        },
-        { headers: { "Content-Type": "application/json" } }
-      );
 
       fetchQuestions();
     } catch (err) {
@@ -91,7 +83,7 @@ const AdminHome = () => {
 
       <div className="questions-list">
         {questions.map((q) => (
-          <div key={q.id} className="question-card">
+          <div key={q.question_id} className="question-card">
             <h3>{q.question_body}</h3>
             <div className="options">
               {q.options?.map((opt) => (
@@ -102,7 +94,7 @@ const AdminHome = () => {
             </div>
             <div className="action-buttons">
               <button className="edit-btn" onClick={() => handleEditFull(q)}>✏️ Edit All</button>
-              <button className="delete-btn" onClick={() => handleDelete(q.id)}>🗑 Delete</button>
+              <button className="delete-btn" onClick={() => handleDelete(q.question_id)}>🗑 Delete</button>
             </div>
           </div>
         ))}

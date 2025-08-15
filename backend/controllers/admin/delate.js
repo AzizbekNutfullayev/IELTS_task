@@ -1,14 +1,17 @@
-// delete controller
+const pool = require("../../config/db");
+
+
 exports.delate = async (req, res) => {
   try {
-    const { questionId } = req.params; 
-    if (!questionId) {
+    const { id } = req.params; 
+
+    if (!id) {
       return res.status(400).json({ message: "ID is required" });
     }
 
     const result = await pool.query(
       "DELETE FROM questions WHERE id = $1 RETURNING *",
-      [questionId]
+      [id]
     );
 
     if (result.rowCount === 0) {

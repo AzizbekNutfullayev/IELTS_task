@@ -1,8 +1,9 @@
 .container {
   max-width: 500px;
-  margin: 30px auto;
+  margin:  auto;
   font-family: 'Arial', sans-serif;
   text-align: center;
+  margin-top: 50px;
 }
 
 .btn {
@@ -20,58 +21,142 @@
   background-color: #0056b3;
 }
 
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 22px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
 .timer {
-  margin: 15px 0;
+  font-size: 18px;
   font-weight: bold;
+  margin-bottom: 15px;
 }
 
 .question {
-  margin: 20px 0;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
 }
 
 .options {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 .option {
-  display: block;
-  margin: 8px 0;
-  padding: 8px 12px;
-  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 8px;
   border: 1px solid #ccc;
   cursor: pointer;
-  width: 100%;
-  transition: background 0.3s;
+  transition: 0.3s;
+  background-color: #fff;
 }
 
-.option input {
-  margin-right: 8px;
+.option input[type="radio"] {
+  margin-right: 10px;
+}
+
+.option:hover {
+  background-color: #f1f1f1;
 }
 
 .option.correct {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #c8e6c9;
+  border-color: #4CAF50;
 }
 
 .option.wrong {
-  background-color: #F44336;
-  color: white;
+  background-color: #ffcdd2;
+  border-color: #f44336;
 }
 
 .score {
-  margin-top: 15px;
+  font-size: 18px;
   font-weight: bold;
+  margin-top: 10px;
 }
 
 .end-buttons {
   display: flex;
   justify-content: center;
-  margin-top: 15px;
+  gap: 15px;
+  margin-top: 20px;
 }
 
+@media (max-width: 750px) {
+  .container {
+    padding: 15px;
+  }
+  .question {
+    font-size: 18px;
+  }
+  .btn {
+    padding: 8px 18px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 550px) {
+  .container {
+    padding: 12px;
+  }
+  .question {
+    font-size: 17px;
+  }
+  .btn {
+    padding: 7px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .question {
+    font-size: 16px;
+  }
+  .btn {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 450px) {
+  .container {
+    padding: 10px;
+  }
+  .question {
+    font-size: 15px;
+  }
+  .btn {
+    padding: 5px 12px;
+    font-size: 12px;
+  }
+}
 
 
 
@@ -117,100 +202,116 @@
 }
 
 
+/* Login.css yoki index.css */
+
 .login-container {
   max-width: 400px;
   margin: 50px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 30px 25px;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  font-family: 'Arial', sans-serif;
   text-align: center;
-  font-family: Arial, sans-serif;
 }
 
-.login-form {
+.login-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.login-container form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.login-form input {
-  padding: 8px;
-  border-radius: 4px;
+.login-container input {
+  padding: 10px 15px;
+  border-radius: 8px;
   border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
 }
 
-.login-form button {
-  padding: 10px;
-  border: none;
-  background-color: #4caf50;
+.login-container input:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.login-container button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
   color: white;
-  border-radius: 4px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-.login-form button:disabled {
-  background-color: #888;
-  cursor: not-allowed;
+.login-container button:hover {
+  background-color: #45a049;
 }
 
-.error {
-  color: red;
-  font-size: 0.9em;
+.login-container p {
+  margin-top: 10px;
+  font-size: 14px;
 }
 
+/* Responsive media queries */
+@media (max-width: 750px) {
+  .login-container {
+    margin: 40px 20px;
+    padding: 25px 20px;
+  }
+  .login-container input, .login-container button {
+    font-size: 15px;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 550px) {
+  .login-container {
+    padding: 20px 15px;
+  }
+  .login-container input, .login-container button {
+    font-size: 14px;
+    padding: 7px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container h2 {
+    font-size: 20px;
+  }
+  .login-container input, .login-container button {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .login-container h2 {
+    font-size: 18px;
+  }
+  .login-container input, .login-container button {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+}
+
+
+
+
+/* AdminHome.css */
 
 .admin-container {
+  max-width: 1200px;
+  margin: 30px auto;
   padding: 20px;
-  max-width: 900px;
-  margin: auto;
-}
-
-.questions-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.question-card {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 15px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
-.options {
-  margin: 10px 0;
-}
-
-.option {
-  display: inline-block;
-  margin-right: 10px;
-  background-color: #f1f1f1;
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-.delete-btn {
-  background-color: #f44336;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-
-
-
-
-.admin-container {
-  padding: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-  font-family: "Arial", sans-serif;
-  background-color: #f3f4f6;
+  font-family: 'Arial', sans-serif;
 }
 
 .admin-header {
@@ -218,157 +319,226 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  flex-wrap: wrap;
-  background-color: #4f46e5;
-  color: white;
-  padding: 15px 20px;
-  border-radius: 10px;
 }
 
 .admin-header h1 {
+  color: #333;
   font-size: 28px;
-  margin: 0;
 }
 
-.header-buttons {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  padding: 8px 15px;
+.header-buttons .btn {
+  padding: 8px 16px;
+  margin-left: 10px;
   border: none;
-  border-radius: 5px;
-  font-weight: bold;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  font-size: 14px;
+  transition: 0.3s;
 }
 
-.add-btn {
-  background-color: #22c55e;
+.header-buttons .add-btn {
+  background-color: #4CAF50;
   color: white;
 }
 
-.add-btn:hover {
-  background-color: #16a34a;
+.header-buttons .add-btn:hover {
+  background-color: #45a049;
 }
 
-.logout {
-  background-color: #ef4444;
+.header-buttons .logout {
+  background-color: #f44336;
   color: white;
 }
 
-.logout:hover {
-  background-color: #b91c1c;
+.header-buttons .logout:hover {
+  background-color: #e53935;
 }
 
 .questions-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
+  justify-content: flex-start;
 }
 
 .question-card {
-  padding: 20px;
+  background-color: #f8f9fa;
   border-radius: 12px;
-  background-color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 20px;
+  width: calc(33.33% - 20px);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .question-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.question-card h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #333;
 }
 
 .options {
-  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .option {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #e0e0e0;
   padding: 8px 12px;
-  margin-bottom: 8px;
   border-radius: 6px;
-  background-color: #e5e7eb;
+  margin-bottom: 5px;
+  font-size: 14px;
+  transition: 0.3s;
 }
 
 .option.correct {
-  background-color: #bbf7d0;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.option:hover {
+  background-color: #d5d5d5;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.edit-btn, .delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.3s;
 }
 
 .edit-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
+  background-color: #2196F3;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #1976D2;
 }
 
 .delete-btn {
-  margin-top: 12px;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 6px;
-  background-color: #f87171;
+  background-color: #f44336;
   color: white;
-  cursor: pointer;
-  transition: all 0.2s;
 }
 
 .delete-btn:hover {
-  background-color: #dc2626;
+  background-color: #e53935;
 }
 
-/* Media queries */
-@media (max-width: 768px) {
+/* Responsive */
+@media (max-width: 1024px) {
+  .question-card {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 700px) {
+  .question-card {
+    width: 100%;
+  }
+
   .admin-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
   }
 
   .header-buttons {
-    width: 100%;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-
-  .questions-list {
-    grid-template-columns: 1fr;
+    display: flex;
+    gap: 10px;
   }
 }
 
 
+/* AddQuestion.css */
 
+div {
+  font-family: 'Arial', sans-serif;
+}
 
-.option {
-  display: block;
-  padding: 10px;
-  margin: 5px 0;
-  border: 2px solid #ccc;
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 8px 0 15px 0;
+  border: 1px solid #ccc;
   border-radius: 8px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #2196F3;
+  outline: none;
+}
+
+div > label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.option-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+input[type="radio"] {
   cursor: pointer;
+  accent-color: #4CAF50;
 }
 
-.option.correct {
-  background-color: #4caf50;
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50;
   color: white;
-  border-color: #4caf50;
-}
-
-.option.wrong {
-  background-color: #f44336;
-  color: white;
-  border-color: #f44336;
-}
-
-.option input {
-  margin-right: 8px;
-}
-
-.btn {
-  padding: 10px 15px;
-  margin-top: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
+  transition: 0.3s;
 }
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  form {
+    padding: 20px;
+  }
+
+  .option-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
